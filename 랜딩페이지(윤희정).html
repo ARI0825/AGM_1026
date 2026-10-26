@@ -364,7 +364,7 @@ const ampQueue = [];
 })();
 const track = (name, p={}) => {
   (window.dataLayer = window.dataLayer || []).push({event:name, channel, ...p});
-  const props = {channel, ...p};
+  const props = {channel, env: /github\.io$/.test(location.hostname) ? "prod" : "dev", ...p};
   if(window.amplitude && window.amplitude.track) window.amplitude.track(name, props);
   else ampQueue.push([name, props]);
 };
@@ -383,8 +383,27 @@ function targetUrl(store){
 }
 document.querySelectorAll(".cta").forEach(a=>{
   a.href = targetUrl(a.dataset.store);
-  a.addEventListener("click", ()=> track("cta_click",{position:a.dataset.pos, store:a.dataset.store||"auto"}));
+  a.addEventListener("click", ()=> track("cta_click", ctaProps(a)));
 });
+
+/* ====== CTA 노출(cta_impression) · 클릭(cta_click) ======
+   - 위치(position)별로 버튼이 50% 이상 화면에 보이면 방문당 1회 노출로 집계
+   - 하단 고정 CTA는 실제로 나타났을 때만 집계됨(화면 밖에 숨어 있는 동안은 집계 안 됨) */
+function ctaProps(a){
+  return {position:a.dataset.pos, label:a.textContent.trim(), store:a.dataset.store||"auto"};
+}
+const ctaSeen = new Set();
+const impIO = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    const a = e.target, pos = a.dataset.pos;
+    if(e.isIntersecting && e.intersectionRatio>=.5 && !ctaSeen.has(pos)){
+      ctaSeen.add(pos);
+      track("cta_impression", ctaProps(a));
+      impIO.unobserve(a);
+    }
+  });
+},{threshold:[.5]});
+document.querySelectorAll(".cta").forEach(a=>impIO.observe(a));
 
 /* ====== 카운트다운 ======
    ?t=<주문완료 시각 ms 또는 ISO> 가 있으면 그 시점부터 14일, 없으면 방문 시점부터 14일(브라우저 저장) */
