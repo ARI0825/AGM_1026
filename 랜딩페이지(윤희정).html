@@ -335,6 +335,9 @@ const CONFIG = {
   IOS:     "https://apps.apple.com/kr/app/id378084485",
   ANDROID: "https://play.google.com/store/apps/details?id=PACKAGE_ID_HERE",
   DAYS: 14,
+  // Amplitude: 프로젝트 ID 887079 (모바일 URL 스키마 amp-9243e33203f74c7d)
+  // 웹 SDK에는 프로젝트의 "API Key"가 필요합니다 (Amplitude > Settings > Projects > 해당 프로젝트). 비워두면 전송하지 않습니다.
+  AMPLITUDE_API_KEY: "7e3d9ce33e1dd21a567a8226c73dfefb",   // 공개용 클라이언트 키 (.env의 AMPLITUDE_API_KEY와 동일). Secret Key는 절대 여기에 넣지 마세요.
   PCT: 15          // 혜택 수치는 여기 한 곳만 바꾸면 페이지 전체(.pct/.days)에 반영됩니다
 };
 document.querySelectorAll(".pct").forEach(e=>e.textContent=CONFIG.PCT);
@@ -343,8 +346,27 @@ document.querySelectorAll(".days").forEach(e=>e.textContent=CONFIG.DAYS);
 /* ====== 유입 채널 추적 (이벤트 배너 / 앱 푸시) ====== */
 const qs = new URLSearchParams(location.search);
 const channel = qs.get("utm_source") || qs.get("ch") || "direct";   // 예: ?utm_source=banner / push
+/* ====== Amplitude (브라우저 SDK 2) ====== */
+const ampQueue = [];
+(function loadAmplitude(){
+  const key = CONFIG.AMPLITUDE_API_KEY;
+  if(!key) return;
+  const s = document.createElement("script");
+  s.src = "https://cdn.amplitude.com/script/" + key + ".js";
+  s.async = true;
+  s.onload = ()=>{
+    try{
+      window.amplitude.init(key, {autocapture:true});   // 페이지뷰·UTM·클릭 자동 수집
+      ampQueue.splice(0).forEach(([n,p])=>window.amplitude.track(n,p));
+    }catch(e){}
+  };
+  document.head.appendChild(s);
+})();
 const track = (name, p={}) => {
   (window.dataLayer = window.dataLayer || []).push({event:name, channel, ...p});
+  const props = {channel, ...p};
+  if(window.amplitude && window.amplitude.track) window.amplitude.track(name, props);
+  else ampQueue.push([name, props]);
 };
 track("landing_view");
 
