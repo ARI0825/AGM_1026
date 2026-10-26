@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>또 시켜먹으면 15% 할인 | 2주 안에 같은 가게 재주문</title>
+<meta name="description" content="첫 주문 후 2주 안에 같은 가게에서 다시 주문하면 15% 할인. 앱에서 바로 쿠폰 받기.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#2ac1bc; --mint-dark:#1a9a96; --mint-soft:#e6f8f7;
+  --ink:#1c1f23; --sub:#6b7280; --line:#e5e7eb; --bg:#ffffff; --card:#f7f9fa;
+  --accent:#ffd84d; --warn:#ff5a5f;
+  --display:"Do Hyeon","Noto Sans KR",sans-serif;
+  --body:"Noto Sans KR",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{--ink:#f3f4f6; --sub:#9ca3af; --line:#2d3238; --bg:#121416; --card:#1b1e21; --mint-soft:#10302f;}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.55;padding-bottom:84px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:560px;margin:0 auto;padding:0 20px}
+@media (min-width:640px){.wrap{max-width:720px}}
+@media (min-width:1024px){.wrap{max-width:1080px;padding:0 32px}}
+h1,h2,h3,.num{font-family:var(--display);font-weight:400;letter-spacing:-.01em}
+
+/* HERO */
+.hero{background:var(--mint);color:#fff;text-align:center;padding:36px 0 56px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-1px;height:36px;background:var(--bg);border-radius:50% 50% 0 0/100% 100% 0 0}
+.eyebrow{display:inline-block;background:rgba(255,255,255,.2);padding:6px 14px;border-radius:99px;font-size:14px;font-weight:700}
+.hero h1{font-size:clamp(34px,10vw,48px);line-height:1.2;margin:16px 0 10px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{font-size:16px;opacity:.95}
+.big{font-family:var(--display);font-size:clamp(96px,32vw,150px);line-height:1;color:var(--accent);margin:18px 0 4px;text-shadow:0 5px 0 rgba(0,0,0,.12)}
+.big small{font-size:.4em;margin-left:2px}
+
+.hero{padding:24px 0 48px}
+.hero h1{margin:12px 0 4px}
+.big{font-size:clamp(84px,26vw,120px);margin:8px 0 0}
+.hero-art{width:min(100%,230px);height:auto;margin:6px auto 0;display:block}
+.hero p{font-size:15px}
+.inline-cta{max-width:420px;margin:22px auto 0}
+@media (min-width:1024px){.hero-art{margin:24px 0 0;width:380px}}
+.hero-grid{display:grid;gap:26px}
+.hero-copy{text-align:center}
+.hero-grid .coupon{color:var(--ink)}
+@media (min-width:1024px){
+  .hero{padding:64px 0 88px}
+  .hero-grid{grid-template-columns:1.1fr .9fr;align-items:center;gap:56px}
+  .hero-copy{text-align:left}
+  .hero h1{font-size:56px}
+  .big{font-size:170px}
+}
+
+/* COUPON */
+.coupon{position:relative;z-index:2;width:100%;max-width:520px;margin:0 auto;background:var(--bg);border:2px dashed var(--mint);border-radius:20px;padding:22px 20px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.coupon .label{font-size:13px;color:var(--sub)}
+.coupon .name{font-family:var(--display);font-size:26px;margin:2px 0 12px}
+.timer{display:flex;justify-content:center;gap:8px}
+.timer div{background:var(--mint-soft);border-radius:12px;flex:1;max-width:76px;min-width:0;padding:8px 4px}
+.timer b{display:block;font-family:var(--display);font-weight:400;font-size:28px;color:var(--mint-dark);font-variant-numeric:tabular-nums}
+.timer span{font-size:11px;color:var(--sub)}
+.note{font-size:12px;color:var(--sub);margin-top:10px}
+.urgent-line{font-size:13px;font-weight:700;color:var(--warn);margin-top:12px}
+
+/* BUTTONS */
+.btn{display:block;width:100%;text-align:center;text-decoration:none;font-family:var(--display);font-size:20px;padding:16px;border-radius:14px;background:var(--mint);color:#fff;border:0;cursor:pointer;transition:transform .12s,background .12s}
+.btn:hover{background:var(--mint-dark)}
+.btn:active{transform:scale(.98)}
+.btn.sec{background:var(--ink);color:var(--bg)}
+.coupon .btn{margin-top:16px}
+.stores{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.stores .btn{font-size:16px;padding:13px 8px}
+
+section{padding:48px 0 0}
+section h2{font-size:28px;text-align:center;margin-bottom:6px}
+section .lead{text-align:center;color:var(--sub);font-size:15px;margin-bottom:22px}
+
+/* STEPS */
+.steps{display:grid;gap:12px}
+.step{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:16px;padding:16px}
+.step .num{flex:none;width:44px;height:44px;border-radius:50%;background:var(--mint);color:#fff;display:grid;place-items:center;font-size:22px}
+.step h3{font-size:19px}
+.step p{font-size:14px;color:var(--sub)}
+
+/* CALC */
+.calc{background:var(--mint-soft);border-radius:20px;padding:22px 20px}
+.calc label{font-size:14px;font-weight:700;display:flex;justify-content:space-between}
+.calc output{color:var(--mint-dark)}
+input[type=range]{width:100%;margin:14px 0 6px;accent-color:var(--mint)}
+.ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--sub)}
+.result{margin-top:18px;background:var(--bg);border-radius:14px;padding:16px;text-align:center}
+.result .save{font-family:var(--display);font-size:38px;color:var(--warn)}
+.result p{font-size:13px;color:var(--sub)}
+
+.compare{margin-top:18px;display:grid;gap:8px}
+.compare .row{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:8px;font-size:12px}
+.compare i{display:block;height:22px;border-radius:6px;background:#c9d1d6;transition:width .25s}
+.compare .hit i{background:var(--mint)}
+.compare b{font-variant-numeric:tabular-nums;min-width:70px;text-align:right}
+.compare .hit b{color:var(--mint-dark)}
+@media (max-width:340px){.compare .row{grid-template-columns:48px 1fr auto}.compare b{min-width:58px}}
+
+/* 후기 · 가게 · 독려 */
+.reviews{display:grid;grid-template-columns:1fr;gap:12px;padding:4px 0 14px}
+.review{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.review .top{display:flex;align-items:center;gap:10px}
+.review .av{width:38px;height:38px;border-radius:50%;background:var(--mint-soft);display:grid;place-items:center;font-size:20px}
+.review .who{font-size:12px;color:var(--sub)}
+.review .shop{font-weight:700;font-size:15px}
+.review .stars{color:#f5a623;font-size:13px;letter-spacing:1px;margin:10px 0 4px}
+.review q{display:block;font-size:14px;quotes:none}
+.review .tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:var(--mint-dark);background:var(--mint-soft);border-radius:99px;padding:4px 10px}
+.sample-note{font-size:11px;color:var(--sub);text-align:center;margin-top:2px}
+.shops{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.shop-card{background:var(--card);border-radius:14px;padding:14px 12px;display:flex;gap:10px;align-items:center;min-width:0}
+.shop-card .ic{font-size:26px;flex:none}
+.shop-card b{display:block;font-size:14px;line-height:1.3}
+.shop-card span{font-size:12px;color:var(--sub)}
+.shop-card .chip{display:inline-block;margin-top:3px;font-weight:700;color:var(--mint-dark);background:var(--mint-soft);border-radius:99px;padding:1px 8px}
+.urge{background:var(--accent);color:#1c1f23;border-radius:20px;padding:22px 18px;text-align:center}
+.urge b{font-family:var(--display);font-weight:400;font-size:22px}
+.urge p{font-size:14px;margin:6px 0 14px}
+.urge .btn{max-width:320px;margin:0 auto;font-size:17px;padding:13px}
+@media (min-width:640px){.shops{grid-template-columns:repeat(3,1fr)}.reviews{grid-template-columns:1fr 1fr}}
+@media (min-width:1024px){.shops{grid-template-columns:repeat(4,1fr)}.reviews{grid-template-columns:repeat(2,1fr)}}
+
+/* WHY */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{background:var(--card);border-radius:16px;padding:18px 14px;text-align:center}
+.tile .ic{font-size:30px}
+.tile h3{font-size:17px;margin:6px 0 2px}
+.tile p{font-size:13px;color:var(--sub)}
+
+/* 해상도별 레이아웃 */
+@media (min-width:640px){
+  .grid2{grid-template-columns:repeat(4,1fr)}
+}
+@media (min-width:1024px){
+  section{padding-top:72px}
+  .steps{grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{flex-direction:column;text-align:center;padding:24px 18px}
+  .calc{max-width:640px;margin:0 auto}
+  .faq{max-width:720px;margin:0 auto}
+  .final{border-radius:28px;max-width:1016px;margin:64px auto 0}
+}
+@media (max-width:340px){ /* 폴더블 커버 화면 등 초소형 */
+  .wrap{padding:0 12px}
+  .hero h1{font-size:30px}
+  .coupon{padding:18px 12px}
+  .coupon .name{font-size:22px}
+  .timer{gap:4px}
+  .timer b{font-size:22px}
+  .stores{grid-template-columns:1fr}
+  .btn{font-size:17px}
+}
+
+/* FAQ / TERMS */
+details{border-bottom:1px solid var(--line);padding:14px 2px}
+summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";color:var(--mint-dark);font-size:20px;line-height:1}
+details[open] summary::after{content:"–"}
+details p,details li{font-size:14px;color:var(--sub);margin-top:8px}
+details ul{padding-left:18px}
+.final{margin-top:48px;background:var(--mint);color:#fff;text-align:center;padding:40px 20px;border-radius:24px 24px 0 0}
+.final h2{color:#fff;font-size:30px}
+.final p{opacity:.95;margin:6px 0 20px}
+.final .btn{background:#fff;color:var(--mint-dark)}
+footer{font-size:12px;color:var(--sub);padding:20px 0 8px;text-align:center}
+
+/* STICKY CTA */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .25s}
+.sticky.show{transform:none}
+.sticky .btn{max-width:528px;margin:0 auto;font-size:18px;padding:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+   <div class="hero-copy">
+    <span class="eyebrow">🍜 재주문 혜택 · 첫 주문 후 <span class="days">14</span>일간</span>
+    <h1>그 맛 잊지 못했죠?<br><em>또 시키면 더 싸게</em></h1>
+    <div class="big"><span class="pct">15</span><small>%</small></div>
+    <p>첫 주문 후 <b>2주(<span class="days">14</span>일) 안에</b> 같은 가게에서 다시 주문하면</p>
+    <!-- 히어로 일러스트: 먹던 그 메뉴 + 15% 쿠폰 -->
+    <svg class="hero-art" viewBox="0 0 320 150" role="img" aria-label="맛있게 먹은 한 그릇과 15% 할인 쿠폰">
+      <ellipse cx="110" cy="132" rx="84" ry="10" fill="rgba(0,0,0,.14)"/>
+      <path d="M36 78h148a74 74 0 0 1-148 0z" fill="#fff"/>
+      <path d="M36 78h148" stroke="#ffd84d" stroke-width="6"/>
+      <path d="M60 78c6-18 22-20 34-12 8-14 30-14 38 0 14-8 28 0 30 12z" fill="#ff9f43"/>
+      <circle cx="82" cy="70" r="8" fill="#ffd84d"/><circle cx="118" cy="66" r="9" fill="#ff5a5f"/><circle cx="146" cy="70" r="7" fill="#7bd88f"/>
+      <path d="M88 52c-6-8 6-12 0-22M112 48c-6-8 6-12 0-22M136 52c-6-8 6-12 0-22" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none" opacity=".8"/>
+      <g transform="rotate(-8 240 78)">
+        <path d="M190 40h100a8 8 0 0 1 8 8v20a10 10 0 0 0 0 20v20a8 8 0 0 1-8 8H190a8 8 0 0 1-8-8V88a10 10 0 0 0 0-20V48a8 8 0 0 1 8-8z" fill="#ffd84d"/>
+        <path d="M232 46v84" stroke="#e0b200" stroke-width="2" stroke-dasharray="4 4"/>
+        <text x="207" y="92" text-anchor="middle" font-family="Do Hyeon,sans-serif" font-size="30" fill="#1c1f23">15%</text>
+        <text x="266" y="80" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="12" font-weight="700" fill="#1c1f23">같은 가게</text>
+        <text x="266" y="98" text-anchor="middle" font-family="Noto Sans KR,sans-serif" font-size="12" font-weight="700" fill="#1c1f23">재주문 쿠폰</text>
+      </g>
+    </svg>
+   </div>
+
+  <!-- 쿠폰 카드 -->
+  <div class="coupon" id="coupon">
+    <div class="label">같은 가게 재주문 한정</div>
+    <div class="name">재주문 <span class="pct">15</span>% 할인 쿠폰</div>
+    <div class="timer" role="timer" aria-live="off" aria-label="쿠폰 남은 시간">
+      <div><b id="d">14</b><span>일</span></div>
+      <div><b id="h">00</b><span>시간</span></div>
+      <div><b id="m">00</b><span>분</span></div>
+      <div><b id="s">00</b><span>초</span></div>
+    </div>
+    <a class="btn cta" href="#" data-pos="coupon">앱에서 쿠폰 받고 주문하기</a>
+    <p class="urgent-line">⏰ 놓치면 사라져요! 단골집, 이번에도 싸게 드세요.</p>
+    <p class="note" id="timerNote">첫 주문 완료일부터 <span class="days">14</span>일간, 같은 가게에서 사용할 수 있어요.</p>
+  </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h2>이렇게 받아요</h2>
+    <p class="lead">3단계면 끝, 쿠폰은 자동으로 들어와요</p>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div><h3>평소처럼 주문하기</h3><p>배달의민족 앱에서 마음에 드는 가게에 주문해요.</p></div></div>
+      <div class="step"><div class="num">2</div><div><h3>쿠폰 자동 지급</h3><p>주문 완료 후 해당 가게 전용 <span class="pct">15</span>% 쿠폰이 쿠폰함에 도착해요.</p></div></div>
+      <div class="step"><div class="num">3</div><div><h3><span class="days">14</span>일 안에 다시 주문</h3><p>같은 가게에서 결제 시 쿠폰만 선택하면 바로 <span class="pct">15</span>% 할인!</p></div></div>
+    </div>
+    <a class="btn cta inline-cta" href="#" data-pos="steps">쿠폰 받으러 앱 열기</a>
+  </section>
+
+  <section>
+    <h2>얼마나 아낄 수 있을까?</h2>
+    <p class="lead">주문 금액을 움직여 보세요</p>
+    <div class="calc">
+      <label for="amt">재주문 금액 <output id="amtOut">25,000원</output></label>
+      <input id="amt" type="range" min="10000" max="60000" step="1000" value="25000">
+      <div class="ticks"><span>1만원</span><span>3만원</span><span>6만원</span></div>
+      <div class="compare" aria-hidden="true">
+        <div class="row"><span>일반 주문</span><i style="width:100%"></i><b id="cA">25,000원</b></div>
+        <div class="row hit"><span>재주문</span><i id="barB" style="width:85%"></i><b id="cB">21,250원</b></div>
+      </div>
+      <div class="result">
+        <p><span class="days">14</span>일 안 재주문 시 아끼는 금액 (<span class="pct">15</span>%)</p>
+        <div class="save" id="save">3,750원</div>
+        <p id="saveNote">한 달에 2번 재주문하면 약 7,500원 절약</p>
+      </div>
+    </div>
+    <a class="btn cta inline-cta" href="#" data-pos="calc">이 금액 아끼러 가기</a>
+  </section>
+
+  <section id="reviews">
+    <h2>먼저 다시 시킨 분들의 한마디</h2>
+    <p class="lead">"한 번 더 시켰더니 <span class="pct">15</span>% 싸졌어요"</p>
+    <div class="reviews" id="reviewList" aria-label="재주문 후기"></div>
+    <p class="sample-note" id="sampleNote">※ 화면의 후기·가게는 예시 문구입니다. 실제 고객 후기와 제휴 가게로 교체해 게재하세요.</p>
+  </section>
+
+  <section id="shops">
+    <h2>다들 이 가게에서 또 시켰어요</h2>
+    <p class="lead">나도 단골집에서 <span class="pct">15</span>% 싸게, 지금 눌러보세요</p>
+    <div class="shops" id="shopList"></div>
+    <a class="btn cta inline-cta" href="#" data-pos="shops">내 단골집 쿠폰 확인하기</a>
+  </section>
+
+  <section>
+    <div class="urge">
+      <b>⏰ 쿠폰은 <span class="days">14</span>일 뒤 사라져요</b>
+      <p>이번 주 안에 한 번 더 시키면 가장 알뜰해요. 같이 먹는 친구에게도 알려주세요!</p>
+      <button class="btn sec" id="shareBtn" type="button">친구에게 공유하기</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>재주문이 좋은 이유</h2>
+    <p class="lead">&nbsp;</p>
+    <div class="grid2" style="margin-top:-12px">
+      <div class="tile"><div class="ic">😋</div><h3>실패 없는 선택</h3><p>이미 검증된 단골 맛집</p></div>
+      <div class="tile"><div class="ic">⚡</div><h3>더 빠른 주문</h3><p>주문내역에서 한 번에 담기</p></div>
+      <div class="tile"><div class="ic">🎟️</div><h3><span class="pct">15</span>% 쿠폰 자동 지급</h3><p>결제 화면에서 선택만 하면 끝</p></div>
+      <div class="tile"><div class="ic">🔔</div><h3>만료 전 알림</h3><p>놓치지 않게 앱이 알려줘요</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>자주 묻는 질문</h2>
+    <p class="lead">&nbsp;</p>
+    <div class="faq" style="margin-top:-12px">
+      <details><summary>어떤 가게에서 쓸 수 있나요?</summary><p>첫 주문을 완료한 바로 그 가게에서만 사용할 수 있어요. 다른 가게 주문에는 적용되지 않아요.</p></details>
+      <details><summary>쿠폰은 언제까지 쓸 수 있나요?</summary><p>첫 주문 완료일 기준 <span class="days">14</span>일(2주) 이내 사용할 수 있어요. 기간이 지나면 자동으로 소멸돼요.</p></details>
+      <details><summary>다른 쿠폰과 같이 쓸 수 있나요?</summary><p>쿠폰 중복 사용 여부는 쿠폰 상세 화면의 안내를 따라요.</p></details>
+      <details><summary>이미 앱을 쓰고 있는데 받을 수 있나요?</summary><p>네. 앱을 최신 버전으로 업데이트한 뒤 로그인 상태로 주문하면 동일하게 적용돼요.</p></details>
+    </div>
+  </section>
+
+  <section>
+    <details>
+      <summary>유의사항</summary>
+      <ul>
+        <li>본 혜택은 [운영사 확정 후 기재] 기간 동안 진행되며, 사전 고지 없이 변경·종료될 수 있어요.</li>
+        <li>할인 금액 상한, 최소 주문금액, 대상 가게 및 결제수단 조건은 쿠폰 상세 화면에 표시된 기준을 따라요.</li>
+        <li>주문 취소 시 사용한 쿠폰은 유효기간 내에 한해 복원돼요.</li>
+        <li>부정한 방법으로 발급·사용한 쿠폰은 회수될 수 있어요.</li>
+      </ul>
+    </details>
+  </section>
+</main>
+
+<div class="final">
+  <h2>오늘 먹은 그 맛,<br>2주 안에 <span class="pct">15</span>% 싸게</h2>
+  <p>앱에서 쿠폰 확인하고 바로 재주문하세요</p>
+  <div class="wrap" style="padding:0">
+    <a class="btn cta" href="#" data-pos="final">앱 열고 쿠폰 받기</a>
+    <div class="stores">
+      <a class="btn sec cta" href="#" data-store="ios" data-pos="final_ios">App Store</a>
+      <a class="btn sec cta" href="#" data-store="android" data-pos="final_android">Google Play</a>
+    </div>
+  </div>
+</div>
+<footer>© 서비스 운영사 · 본 페이지는 마케팅 목적의 샘플입니다.</footer>
+
+<div class="sticky" id="sticky"><a class="btn cta" href="#" data-pos="sticky">🎟️ <span class="pct">15</span>% 쿠폰 받으러 가기</a></div>
+
+<script>
+/* ====== 설정 (운영 전 교체) ====== */
+const CONFIG = {
+  // 앱이 설치되어 있으면 열고, 없으면 스토어로 보내는 딥링크/원링크(예: Adjust·Branch·AppsFlyer OneLink)로 교체하세요.
+  ONELINK: "",                                   // 예: "https://baemin.onelink.me/XXXX"
+  IOS:     "https://apps.apple.com/kr/app/id378084485",
+  ANDROID: "https://play.google.com/store/apps/details?id=PACKAGE_ID_HERE",
+  DAYS: 14,
+  PCT: 15          // 혜택 수치는 여기 한 곳만 바꾸면 페이지 전체(.pct/.days)에 반영됩니다
+};
+document.querySelectorAll(".pct").forEach(e=>e.textContent=CONFIG.PCT);
+document.querySelectorAll(".days").forEach(e=>e.textContent=CONFIG.DAYS);
+
+/* ====== 유입 채널 추적 (이벤트 배너 / 앱 푸시) ====== */
+const qs = new URLSearchParams(location.search);
+const channel = qs.get("utm_source") || qs.get("ch") || "direct";   // 예: ?utm_source=banner / push
+const track = (name, p={}) => {
+  (window.dataLayer = window.dataLayer || []).push({event:name, channel, ...p});
+};
+track("landing_view");
+
+/* ====== 앱 이동 링크 ====== */
+function targetUrl(store){
+  const ua = navigator.userAgent;
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  const base = CONFIG.ONELINK || (store ? (store==="ios"?CONFIG.IOS:CONFIG.ANDROID) : (isIOS?CONFIG.IOS:CONFIG.ANDROID));
+  if(!CONFIG.ONELINK) return base;
+  const u = new URL(base);
+  ["utm_source","utm_medium","utm_campaign"].forEach(k=>{ if(qs.get(k)) u.searchParams.set(k, qs.get(k)); });
+  if(!u.searchParams.has("utm_campaign")) u.searchParams.set("utm_campaign","reorder_15");
+  return u.toString();
+}
+document.querySelectorAll(".cta").forEach(a=>{
+  a.href = targetUrl(a.dataset.store);
+  a.addEventListener("click", ()=> track("cta_click",{position:a.dataset.pos, store:a.dataset.store||"auto"}));
+});
+
+/* ====== 카운트다운 ======
+   ?t=<주문완료 시각 ms 또는 ISO> 가 있으면 그 시점부터 14일, 없으면 방문 시점부터 14일(브라우저 저장) */
+function startTime(){
+  const t = qs.get("t");
+  if(t){ const v = isNaN(t) ? Date.parse(t) : Number(t); if(v) return v; }
+  try{
+    const k="reorder_start"; let v=Number(localStorage.getItem(k));
+    if(!v){ v=Date.now(); localStorage.setItem(k,v); }
+    return v;
+  }catch(e){ return Date.now(); }
+}
+const end = startTime() + CONFIG.DAYS*864e5;
+const pad = n => String(n).padStart(2,"0");
+function tick(){
+  let r = Math.max(0, end - Date.now());
+  const d=Math.floor(r/864e5); r%=864e5;
+  const h=Math.floor(r/36e5);  r%=36e5;
+  const m=Math.floor(r/6e4);   r%=6e4;
+  const s=Math.floor(r/1e3);
+  document.getElementById("d").textContent=d;
+  document.getElementById("h").textContent=pad(h);
+  document.getElementById("m").textContent=pad(m);
+  document.getElementById("s").textContent=pad(s);
+  if(end-Date.now()<=0) document.getElementById("timerNote").textContent="쿠폰 사용 기간이 종료되었어요. 다음 혜택을 기대해 주세요!";
+}
+tick(); setInterval(tick,1000);
+
+/* ====== 후기 · 가게 데이터 (예시 — 실제 데이터로 교체) ======
+   isSample:true 인 동안 "예시" 안내가 노출됩니다. 실제 후기는 고객 동의 후 게재하세요. */
+const REVIEWS = [
+  {shop:"예시 분식집 A",  icon:"🍢", menu:"떡볶이 세트", who:"20대 직장인", star:5, text:"점심에 먹고 맛있어서 다음 주에 또 시켰어요. 쿠폰 덕분에 부담 없이 재주문!", days:6, price:19000},
+  {shop:"예시 치킨집 B",  icon:"🍗", menu:"반반치킨",   who:"30대 자취생", star:5, text:"금요일에 시켰던 집을 일요일에 또 시켰어요. 15% 할인이라 한 번 더 시키게 되네요.", days:2, price:23000},
+  {shop:"예시 중식당 C",  icon:"🥟", menu:"짜장+탕수육", who:"40대 가족",   star:4, text:"아이들이 또 먹고 싶다고 해서 바로 재주문했어요. 쿠폰함에 자동으로 들어와 있어서 편했어요.", days:9, price:28000},
+  {shop:"예시 카페 D",    icon:"🧋", menu:"디저트 박스", who:"20대 대학생", star:5, text:"친구 모임에 시켰다가 마음에 들어서 또 시켰어요. 만료 전에 알림이 와서 안 놓쳤어요.", days:12, price:16000}
+];
+const SHOPS = [
+  {name:"예시 분식집 A", cat:"분식", icon:"🍢"}, {name:"예시 치킨집 B", cat:"치킨", icon:"🍗"},
+  {name:"예시 중식당 C", cat:"중식", icon:"🥟"}, {name:"예시 카페 D", cat:"카페·디저트", icon:"🧋"},
+  {name:"예시 족발집 E", cat:"족발·보쌈", icon:"🍖"}, {name:"예시 피자집 F", cat:"피자", icon:"🍕"},
+  {name:"예시 한식집 G", cat:"한식", icon:"🍚"}, {name:"예시 돈까스집 H", cat:"돈까스·일식", icon:"🍱"}
+];
+const IS_SAMPLE = true;
+const won0 = n => n.toLocaleString("ko-KR")+"원";
+document.getElementById("reviewList").innerHTML = REVIEWS.map(r=>{
+  const save = Math.round(r.price*CONFIG.PCT/100/10)*10;
+  return `<article class="review"><div class="top"><div class="av">${r.icon}</div><div><div class="shop">${r.shop}</div><div class="who">${r.who} · ${r.menu}</div></div></div>
+  <div class="stars" aria-label="별점 ${r.star}점">${"★".repeat(r.star)}${"☆".repeat(5-r.star)}</div>
+  <q>${r.text}</q><span class="tag">${r.days}일 만에 재주문 · ${won0(save)} 절약</span></article>`;
+}).join("");
+document.getElementById("shopList").innerHTML = SHOPS.map(s=>`<div class="shop-card"><span class="ic">${s.icon}</span><div><b>${s.name}</b><span>${s.cat}</span> <span class="chip">${CONFIG.PCT}% 재주문</span></div></div>`).join("");
+if(!IS_SAMPLE) document.getElementById("sampleNote").remove();
+
+/* 공유 */
+document.getElementById("shareBtn").addEventListener("click", async ()=>{
+  const data = {title:document.title, text:`같은 가게 ${CONFIG.DAYS}일 안에 재주문하면 ${CONFIG.PCT}% 할인!`, url:location.href.split("#")[0]};
+  track("share_click");
+  try{ if(navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(data.url); document.getElementById("shareBtn").textContent="링크가 복사됐어요!"; } }catch(e){}
+});
+
+/* ====== 절약 계산기 ====== */
+const amt=document.getElementById("amt"), won=n=>n.toLocaleString("ko-KR")+"원";
+function calc(){
+  const v=Number(amt.value), save=Math.round(v*CONFIG.PCT/100/10)*10;
+  document.getElementById("amtOut").textContent=won(v);
+  document.getElementById("save").textContent=won(save);
+  document.getElementById("cA").textContent=won(v);
+  document.getElementById("cB").textContent=won(v-save);
+  document.getElementById("barB").style.width=(100-CONFIG.PCT)+"%";
+  document.getElementById("saveNote").textContent="한 달에 2번 재주문하면 약 "+won(save*2)+" 절약";
+}
+amt.addEventListener("input",calc); calc();
+
+/* ====== 스티키 CTA: 쿠폰 카드가 화면에서 벗어나면 노출 ====== */
+const sticky=document.getElementById("sticky");
+/* 쿠폰 카드의 CTA 버튼이 화면에 온전히 보이지 않는 동안 노출 (최종 CTA 영역에서는 숨김) */
+const vis = {};
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>vis[e.target.dataset.pos]=e.isIntersecting && e.intersectionRatio>=.99);
+  sticky.classList.toggle("show", !vis.coupon && !vis.final);
+},{threshold:[0,.99,1]});
+document.querySelectorAll('.cta[data-pos="coupon"],.cta[data-pos="final"]').forEach(b=>io.observe(b));
+</script>
+</body>
+</html>
